@@ -4,36 +4,43 @@ import { StyleSheet, Text, View } from "react-native";
 import MapView from "react-native-maps";
 import { Dimensions } from "react-native";
 
+import MapboxGL from "@react-native-mapbox-gl/maps";
+MapboxGL.setAccessToken("sk.eyJ1IjoiZGRhbmdlbG9yYiIsImEiOiJja29lcjBxZG0wMGtxMm9uczljdHpla3JiIn0.6TJTaJQaE4gdLwAvrTU2zA");
+MapboxGL.setConnected(true);
+
 export default function App() {
+  MapboxGL.setTelemetryEnabled(false);
+
   const screen_width = Dimensions.get("window").width;
   const screen_height = Dimensions.get("window").height;
   const default_location = {
-    latitude: -23.644957,
-    longitude: -46.528012,
+    latitude: -23.65717,
+    longitude: -46.69947,
     latitudeDelta: 0.02,
     longitudeDelta: 0.02 * (screen_width / screen_height),
   };
   return (
-    <View style={styles.container}>
-      <MapView
-        style={styles.mapStyle}
-        showsUserLocation={true}
-        initialRegion={{ ...default_location }}
-      ></MapView>
+    <View style={styles.page}>
+      <View style={styles.container}>
+        <MapboxGL.MapView style={styles.map} />
+      </View>
     </View>
   );
 }
 
 const styles = StyleSheet.create({
-  container: {
-    backgroundColor: "black",
+  page: {
     flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: "#F5FCFF"
   },
-  mapStyle: {
-    position: "absolute",
-    top: 0,
-    left: 0,
-    right: 0,
-    bottom: 0,
+  container: {
+    height: 300,
+    width: 300,
+    backgroundColor: "tomato"
   },
+  map: {
+    flex: 1
+  }
 });
