@@ -5,7 +5,7 @@ import MapView from "react-native-maps";
 import { Dimensions } from "react-native";
 
 import MapboxGL from "@react-native-mapbox-gl/maps";
-MapboxGL.setAccessToken("sk.eyJ1IjoiZGRhbmdlbG9yYiIsImEiOiJja29lcjBxZG0wMGtxMm9uczljdHpla3JiIn0.6TJTaJQaE4gdLwAvrTU2zA");
+MapboxGL.setAccessToken("<Token>");
 MapboxGL.setConnected(true);
 
 export default function App() {
