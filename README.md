@@ -5,6 +5,7 @@ React Native prj using Expo and OSM.
 # Dependencies
 
 - [Expo CLI](https://docs.expo.io/workflow/expo-cli/)
+- [Mapbox GL](https://github.com/react-native-mapbox-gl/maps)
 
 # How to setup and run this project
 
