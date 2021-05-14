@@ -1,37 +1,24 @@
 # react-native-expo-osm
 
-React Native prj using Expo and OSM.
+A React Native Expo example featuring Open Street Map as default map source. 
 
 # Dependencies
 
 - [Expo CLI](https://docs.expo.io/workflow/expo-cli/)
-- [Mapbox GL](https://github.com/react-native-mapbox-gl/maps)
+- [WebView](https://github.com/react-native-webview/react-native-webview)
 
 # How to setup and run this project
 
-- Clone the project locally and install dependencies
+- Clone the project locally, install dependencies and start expo server
 
 ```console
     $ git clone https://github.com/GabrielTrettel/react-native-expo-osm.git
     $ cd react-native-expo-osm
     $ cd src
     $ npm install
+    $ expo start
 ```
 
-- Running on iOS
-
-```console
-    $ cd ios
-    $ pod install
-    $ cd ..
-    $ npx react-native run-ios --simulator="iPhone 11 Pro"
-```
-
-- Running on Android
-
-```console
-    $ npx react-native run-android
-```
 
 # How to publish this project
 
