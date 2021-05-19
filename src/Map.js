@@ -43,7 +43,7 @@ export const map = String.raw`
 	}).addTo(mymap);
 
 	L.marker([51.5, -0.09]).addTo(mymap)
-		.bindPopup("<b>Hello world!</b><br />I am a popup.").openPopup();
+		.bindPopup("<b>Hello world!</b><br />I am a popup.");
 
 	L.circle([51.508, -0.11], 500, {
 		color: 'red',
@@ -61,12 +61,19 @@ export const map = String.raw`
 	var popup = L.popup();
 
 	function onMapClick(e) {
-		popup
+		window.ReactNativeWebView.postMessage(e.latlng.toString());
+	popup
 			.setLatLng(e.latlng)
 			.setContent("You clicked the map at " + e.latlng.toString())
 			.openOn(mymap);
+
+		}
+
+	function onPopupClick(e) {
+		window.ReactNativeWebView.postMessage("Cliquei em um popup. conteúdo: " + e.popup.getContent());
 	}
 
+	mymap.on("popupopen", onPopupClick);
 	mymap.on('click', onMapClick);
 </script>
 </body>
