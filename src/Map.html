@@ -42,6 +42,8 @@ export const map = String.raw`
 		zoomOffset: -1
 	}).addTo(mymap);
 
+	L.marker([51.5, -0.09]).addTo(mymap)
+		.bindPopup("<b>Hello world!</b><br />I am a popup.");
 
 	L.circle([51.508, -0.11], 500, {
 		color: 'red',
@@ -59,23 +61,16 @@ export const map = String.raw`
 	var popup = L.popup();
 
 	function onMapClick(e) {
-		var payload = {
-			code: 1,
-			content: {
-				latitude: e.latlng.lat.toString().slice(0,8),
-				longitude: e.latlng.lng.toString().slice(0,8),
-			}
-		}
-		window.ReactNativeWebView.postMessage(JSON.stringify(payload));
+		window.ReactNativeWebView.postMessage(e.latlng.toString());
+	popup
+			.setLatLng(e.latlng)
+			.setContent("You clicked the map at " + e.latlng.toString())
+			.openOn(mymap);
+
 		}
 
 	function onPopupClick(e) {
-		var payload = {
-			code: 2,
-			content: "marker selecionado"
-		}
-		window.ReactNativeWebView.postMessage(JSON.stringify(payload));
-
+		window.ReactNativeWebView.postMessage("Cliquei em um popup. conteúdo: " + e.popup.getContent());
 	}
 
 	mymap.on("popupopen", onPopupClick);
