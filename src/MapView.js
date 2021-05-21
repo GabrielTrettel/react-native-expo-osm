@@ -25,7 +25,7 @@ function insertMarker(mapRef, props) {
   mapRef.injectJavaScript(`
   var layer = L.marker([${props.cords.lat}, ${props.cords.long}], {ID: ${props.ID}}    )
   layer.ID = ${props.ID}
-  layer.addTo(mymap).bindPopup("<b>Hello world!</b><br />I am a popup.");`);
+  layer.addTo(mymap).bindPopup("<b>${props.title}</b><br />I am a popup.");`);
 }
 
 function goToPosition(mapRef, lat, long) {
