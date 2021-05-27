@@ -5,6 +5,7 @@ import MapView from "./MapView";
 export default function App() {
   const [position, setPosition] = useState(null);
   const [clickListener, setClickListener] = useState("");
+  const [layers, setLayers] = useState(false);
 
   const markers = [
     {
@@ -30,6 +31,7 @@ export default function App() {
         animateToPosition={position}
         clickListener={setClickListener}
         markersList={markers}
+        layers={layers}
       />
 
       <View style={styles.btn}>
@@ -50,6 +52,16 @@ export default function App() {
         >
           <Text style={styles.txt}>Londres</Text>
         </TouchableOpacity>
+
+        <TouchableOpacity
+          style={styles.btns}
+          onPress={() => {
+            setLayers(!layers);
+            //console.log(layers);
+          }}
+        >
+          <Text style={styles.txt}>Aplicar camadas</Text>
+        </TouchableOpacity>
       </View>
 
       <View style={styles.callback}>
@@ -63,6 +75,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: "#FFF",
+    paddingTop: 60,
   },
   callback: {
     position: "absolute",

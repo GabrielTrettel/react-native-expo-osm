@@ -31,7 +31,25 @@ export const map = String.raw`
 <div id='map'></div>
 
 <script>
+
+	
+	var grayscale = L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token=pk.eyJ1IjoiZ2FicmllbC10cmV0dGVsIiwiYSI6ImNrb2RjNWIzYjAwczIyd25yNnUweDNveTkifQ.xRASmGTYm0ieS-FjVrXSjA', {
+		maxZoom: 18,
+		attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, ' +
+			'Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
+		id: 'mapbox/streets-v11',
+		tileSize: 512,
+		zoomOffset: -1
+	});
+	
 	var mymap = L.map('map').setView([51.505, -0.09], 13);
+
+	
+	var marker = new Array();
+	
+	var items = [{"lat":"51.51","lon":"-0.047"},{"lat":"51.509","lon":"-0.08"}];
+	var LamMarker = new L.marker([items[0].lat, items[0].lon])
+	marker.push(LamMarker);
 
 	L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token=pk.eyJ1IjoiZ2FicmllbC10cmV0dGVsIiwiYSI6ImNrb2RjNWIzYjAwczIyd25yNnUweDNveTkifQ.xRASmGTYm0ieS-FjVrXSjA', {
 		maxZoom: 18,

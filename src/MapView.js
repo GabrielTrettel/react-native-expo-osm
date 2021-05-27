@@ -28,6 +28,20 @@ function insertMarker(mapRef, props) {
   layer.addTo(mymap).bindPopup("<b>${props.title}</b><br />I am a popup.");`);
 }
 
+function aplyLayers(mapRef, layer) {
+  console.log(layer);
+  // marker declarado em Map.js
+
+  if (layer == true) {
+    mapRef.injectJavaScript(`
+      mymap.addLayer(marker[0]);`);
+  }
+  else if (layer == false) {
+    mapRef.injectJavaScript(`    
+    mymap.removeLayer(marker[0]);`);
+  }
+}
+
 function goToPosition(mapRef, lat, long) {
   mapRef.injectJavaScript(`mymap.setView([${lat}, ${long}], 13);`);
 }
@@ -39,14 +53,22 @@ export default function MapView(props) {
   props.animateToPosition != null &&
     goToPosition(mapRef, ...props.animateToPosition);
 
+  mapRef != null && props.layers != null && aplyLayers(mapRef, props.layers);
+
   const onLoad = () => {
     props.markersList != null &&
       props.markersList.length > 0 &&
       props.markersList.map((m) => insertMarker(mapRef, m));
   };
 
+  //const onLayers = () => {
+  //  props.layers != null && aplyLayers(mapRef, props.layers);
+  // console.log("NÃAAO FUNCIONA");
+  // };
+
   useEffect(() => {
     mapRef != null && onLoad();
+    // mapRef != null  && onLayers();
   }, [finishedLoad]);
 
   return (
