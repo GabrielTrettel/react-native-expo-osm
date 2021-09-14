@@ -6,28 +6,45 @@ import {map} from "./Map";
 
 const code_to_function = {
   "1": clickCallback,
-  "2": clickCallback,
+  "2": markerCallback,
 };
 
 function clickCallback(payload, props) {
-  console.log(payload.content);
-  props.clickListener(JSON.stringify(payload.content));
+  const cords = JSON.stringify(payload.content);
+  console.log("payload content: " + cords);
+  props.clickListener(cords);
+}
+
+function markerCallback(payload, props) {
+  const markerID = JSON.stringify(payload.content);
+  console.log("payload content: " + JSON.stringify(payload.content));
+  props.markersListener(markerID)
+
+
 }
 
 function parseInput(event, props) {
-  // console.log(event);
   const payload = JSON.parse(event);
-  // console.log(payload);
-
   code_to_function[payload.code](payload, props);
 }
 
-function insertMarker(mapRef, props) {
-  console.log(props);
+
+async function insertMarker(mapRef, ID, cords, icon) {
   mapRef.injectJavaScript(`
-  var layer = L.marker([${props.cords.lat}, ${props.cords.long}], {ID: ${props.ID}}    )
-  layer.ID = ${props.ID}
-  layer.addTo(mymap).bindPopup("<b>${props.title}</b><br />I am a popup.");`);
+  var customIcon = L.divIcon({
+    className: 'marker-class',
+    html: \`<body>${icon}</body>\`,
+    iconSize: 50
+  });
+
+  // Check if there is no other marker with same ID already in map
+  if (!(${ID} in markers)) {
+    // Creates marker object
+    markers[${ID}] = L.marker([${cords.lat}, ${cords.long}], {icon: customIcon, ID: ${ID}});
+
+    // Add marker to map and bind callback event to its function
+    markers[${ID}].addTo(mymap).on('click', onPopupClick);
+  }`);
 }
 
 function goToPosition(mapRef, lat, long) {
@@ -45,7 +62,7 @@ export default function MapView(props) {
   const onLoad = () => {
     props.markersList != null &&
       props.markersList.length > 0 &&
-      props.markersList.map((m) => insertMarker(mapRef, m));
+      props.markersList.map(({ID, cords, icon}) => insertMarker(mapRef, ID, cords, icon));
   };
 
   useEffect(() => {

@@ -1,34 +1,43 @@
 import React, { useRef, useState } from "react";
 import { Button, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import MapView from "./MapView";
+import star from "./assets/star";
 
 export default function App() {
   const [position, setPosition] = useState(null);
   const [clickListener, setClickListener] = useState("");
+  const [markersListener, setMarkersListener] = useState("");
+
 
   const markers = [
     {
       ID: "1",
       title: "Casa da Lívia",
+      icon: star,
       cords: {
         lat: 51.505,
         long: -0.09,
       },
     },
+
     {
       ID: "2",
       title: "Casa do Daniel",
+      icon: star,
       cords: {
-        lat: 51.5032,
-        long: -0.09589,
+        lat: 51.50322,
+        long: -0.1109,
       },
     },
   ];
+
+
   return (
     <View style={styles.container}>
       <MapView
         animateToPosition={position}
         clickListener={setClickListener}
+        markersListener={setMarkersListener}
         markersList={markers}
       />
 
@@ -54,6 +63,7 @@ export default function App() {
 
       <View style={styles.callback}>
         <Text style={styles.txt}>{clickListener}</Text>
+        <Text style={[styles.txt, {marginTop: 20}]}>Marker ID triggered by onPopupClick: {markersListener}</Text>
       </View>
     </View>
   );
